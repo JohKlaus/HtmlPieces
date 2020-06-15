@@ -1,0 +1,73 @@
+/**********************************************************************/
+/* Notebook Variante Grid                                             */
+/**********************************************************************/
+/*--------------------------------------------------------------------*/
+/* Allgemeine, von der Lage der Tabs unabhaengige Einstellungen        */
+/*--------------------------------------------------------------------*/
+.nb   { position:relative; overflow: hidden
+			; border:1px gray solid;
+			; grid-gap: 0px
+			}
+			
+.nb > .tabs   { background-color: #eeeef6; border:1px gray none; }
+.nb > .pages { overflow:hidden; background-color: #fffff0 }
+
+.nb > .pages > .page.sel { display:block } 
+.nb > .pages > .page 
+			{ display:none
+			; position:relative; overflow:auto
+			; width:98%; height:98%; top:1%; left:1%
+			; background-color:white 
+			}
+
+/*--------------------------------------------------------------------*/
+/* Von der Lage der Tabs abhaengige Einstellungen des Notebooks       */
+/*--------------------------------------------------------------------*/
+.nb.hor > .tabs { padding: 0ex 1ex 0ex 2ex; white-space:nowrap }
+.nb.ver > .tabs { padding: 1ex 0ex; }
+.nb.top > .tabs { border-bottom-style:solid; }
+.nb.bot > .tabs { border-top-style   :solid; }
+.nb.lft > .tabs { border-right-style :solid; }
+.nb.rgt > .tabs { border-left-style  :solid; }
+
+.nb     > .tabs > .tab { position:relative; font-size:smaller; border:1px solid gray }
+.nb.hor > .tabs > .tab { display:inline-block; padding:0.1ex 1ex}
+.nb.ver > .tabs > .tab { display:block       ; padding:0.1ex 1ex}
+
+.nb.top > .tabs > .tab { bottom:-1px; border-radius: 0.5ex 0.5ex 0 0 }
+.nb.bot > .tabs > .tab { top   :-2px; border-radius: 0 0 0.5ex 0.5ex }
+.nb.lft > .tabs > .tab { right :-1px; border-radius: 0.5ex 0 0 0.5ex }
+.nb.rgt > .tabs > .tab { left  :-1px; border-radius: 0 0.5ex 0.5ex 0 }
+
+.nb     > .tabs > .tab.sel { background-color   :white; }
+.nb.top > .tabs > .tab.sel { border-bottom-color:white; }
+.nb.bot > .tabs > .tab.sel { border-top-color   :white; }
+.nb.lft > .tabs > .tab.sel { border-right-color :white; }
+.nb.rgt > .tabs > .tab.sel { border-left-color  :white; }
+
+.nb> .tabs > .tab:hover:not(.sel) { background-color:white; opacity:0.7}
+
+/*--------------------------------------------------------------------*/
+/* grid-spezifische Einstellungen fuer das Notebook                   */
+/*--------------------------------------------------------------------*/
+.grid { display:grid }
+
+.nb.hor { grid-template-columns: 100%       }
+.nb.ver { grid-template-rows   : 100%       }
+
+.nb.grid.top { grid-template-rows: 2.4ex auto }
+.nb.grid.bot { grid-template-rows: auto 2.4ex }
+.nb.grid.lft { grid-template-columns: 15ex auto }
+.nb.grid.rgt { grid-template-columns: auto 15ex}
+
+.nb.grid.top > .tabs  { grid-area: 1 / 1 }
+.nb.grid.top > .pages { grid-area: 2 / 1 }
+
+.nb.grid.bot > .tabs  { grid-area: 2 / 1 }
+.nb.grid.bot > .pages { grid-area: 1 / 1 }
+
+.nb.grid.lft > .tabs  { grid-area: 1 / 1 }
+.nb.grid.lft > .pages { grid-area: 1 / 2 }
+
+.nb.grid.rgt > .tabs  { grid-area: 1 / 2 }
+.nb.grid.rgt > .pages { grid-area: 1 / 1 }

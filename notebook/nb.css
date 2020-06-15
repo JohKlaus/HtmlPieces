@@ -1,0 +1,78 @@
+/**********************************************************************/
+/* Notebook (Grid ohne flex-Alternative)                              */
+/**********************************************************************/
+/* Die Styles sind abgestimmt auf das HTML-Geruest in nb.html.tpl     */
+/**********************************************************************/
+
+/*--------------------------------------------------------------------*/
+/* Allgemeine von der Lage der Tabs unabhaengige Einstellungen        */
+/*--------------------------------------------------------------------*/
+			
+.nb { position        : relative
+		; overflow        : hidden
+		; border          : 1px black solid
+		; display         : grid
+		; margin          : 0px
+		; padding         : 0px
+		; color           : initial
+		; background-color: white
+		}
+			
+.nb > div            { min-width:initial; min-height:initial; width:initial; height:initial; left:initial; top:initial; color:initial; margin:0px; padding:0px }
+.nb > div > div,span { min-width:initial; min-height:initial; width:initial; height:initial; left:initial; top:initial; color:initial; margin:0px; padding:0px }
+
+.nb > .tabs  { background-color: #eeeef6; border:1px gray none; }
+.nb > .pages { overflow:hidden; border-style:none; background-color: #fffff0; color:initial }
+
+.nb > .pages > .page.sel { display:block;  } 
+.nb > .pages > .page 
+			{ display:none
+			; position:relative; overflow:auto
+			; width:98%; height:98%; top:1%; left:1%
+			; background-color:white; border-style:none
+			; color:initial
+			}
+
+.nb > .tabs > .tab { position:relative; font-size:smaller; border:1px solid gray }
+.nb > .tabs > .tab.sel { background-color   :white; }
+.nb > .tabs > .tab:hover:not(.sel) { background-color:white; opacity:0.7}
+
+/*--------------------------------------------------------------------*/
+/* Von der Lage der Tabs abhaengige Einstellungen des Notebooks       */
+/*--------------------------------------------------------------------*/
+.nb.hor > .tabs { padding: 0ex 1ex 0ex 2ex; white-space:nowrap }
+.nb.ver > .tabs { padding: 1ex 0ex; }
+.nb.top > .tabs { border-bottom-style:solid; }
+.nb.bot > .tabs { border-top-style   :solid; }
+.nb.lft > .tabs { border-right-style :solid; }
+.nb.rgt > .tabs { border-left-style  :solid; }
+
+.nb.hor > .tabs > .tab { display:inline-block; padding:0.1ex 1ex}
+.nb.ver > .tabs > .tab { display:block       ; padding:0.1ex 1ex}
+
+.nb.top > .tabs > .tab { bottom:-1px; border-radius: 0.5ex 0.5ex 0px 0px }
+.nb.bot > .tabs > .tab { top   :-1px; border-radius: 0px 0px 0.5ex 0.5ex }
+.nb.lft > .tabs > .tab { right :-1px; border-radius: 0.5ex 0px 0px 0.5ex }
+.nb.rgt > .tabs > .tab { left  :-1px; border-radius: 0px 0.5ex 0.5ex 0px }
+
+.nb.top > .tabs > .tab.sel { border-bottom-color:white; }
+.nb.bot > .tabs > .tab.sel { border-top-color   :white; }
+.nb.lft > .tabs > .tab.sel { border-right-color :white; }
+.nb.rgt > .tabs > .tab.sel { border-left-color  :white; }
+ 
+/*--------------------------------------------------------------------*/
+/* grid-spezifische Einstellungen fuer das Notebook                   */
+/*--------------------------------------------------------------------*/
+.nb.hor { grid-template-columns: 100%       }
+.nb.ver { grid-template-rows   : 100%       }
+
+.nb.top { grid-template-rows   : 2.4ex auto }
+.nb.bot { grid-template-rows   : auto 2.4ex }
+.nb.lft { grid-template-columns: 15ex auto  }
+.nb.rgt { grid-template-columns: auto 15ex  }
+
+.nb.bot > .tabs  { grid-area: 2 / 1 }
+.nb.bot > .pages { grid-area: 1 / 1 }
+
+.nb.rgt > .tabs  { grid-area: 1 / 2 }
+.nb.rgt > .pages { grid-area: 1 / 1 }

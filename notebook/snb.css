@@ -1,0 +1,131 @@
+/**************************************************************************
+* Styles, die die Darstellung eines Notebooks ohne JS ermoeglichen
+* (Style${notebookid}ly Note Book)
+*-------------------------------------------------------------------------- 
+* Das Notebook hat die Laschen(tabs) horizontal, oben oder unten, bzw.
+* vertikal, links oder rechts.
+* Blaettern ist alleine mit Styles umgesetzt.
+* Zur Bestimmung der Tab-Position muss lediglich im Top-Element (.snb)
+* die Klasse hor bzw. ver und eine der entsprechenden Klassen top, bot,
+* lft oder rgt gestzt werden.
+*-------------------------------------------------------------------------- 
+* Das HTML mussfolgenden Aufbau haben:
+*
+*	<div class="snb (hor|ver) (lft|rgt)" id="${notebookid}" ><div class="snbtabs">
+*	 (<input  id="${notebookid}rb${num}" class="snbsel" type="radio" name="${notebookid}"><label class="snblabel" for="${notebookid}rb${num}">
+*			<span id="${notebookid}tb${num}" class="snbtitle">erster Tab</span></label><div class="snbpage"> 
+*			<div  id="${notebookid}cp${num}" class="snbcontent">
+*				erste Seite
+*		 </div>)*
+*	</div></div>
+* 
+* wobei  ( ... )?    bedeutet: kann da sein, muss aber nicht
+*   und  ( ... )*    bedeutet: kann beliebig oft da sein
+*   und  ( ...|... ) bedeutet: genau einer der beiden Seiten muss vorhanden sein
+*   und ${ ... }     bedeutet: muss mit entsprechendem Inhalt gefuellt werden
+*-----------------------------------------------------------------------------------
+* Anmerkung: Die Verwendung der Klassen snbxxx ist grundsaetzlich nicht noetig. 
+*            Genausogut koennten die tagnamen zur style-Definition verwendet werden.
+*            Nur snb an der Spitze der Struktur wird benoetigt. 
+*
+*            Die id des input-Elements und der name des labels sind notwendig, 
+*            anderenfalls JS zum Blaettern verwendet werden muesste. D.h. auch 
+*            die Verwendung von tag "input" mit type "radio" und von tag "label"
+*            mit Attribut "for" sind deshalb notwendig.
+*            Die hier strukturierte Vergabe von Klasse, id und und name ist nicht
+*            notwendig, aber sinnvoll und bei Generierung des HTML das Einfachste.
+*
+*            Die Elemente mit Klasse snbtitle und snbcontent schotten die Struktur
+*						 vor Aenderungen von Schriftgroessen ab, die die Lage der snbpage 
+*            deshalb beeinflussen, weil sie mit "ex" angegeben ist.
+***************************************************************************/
+
+/*--------------------------------------------------------------------------------
+ * Vergabe von Variablen fuer die Farben des Notebooks
+ *-------------------------------------------------------------------------------*/
+:root {
+	--snbSelectedBG: white;
+	--snbTextColor : black;
+	--snbFrameColor: black;
+	--snbTabBorder : darkgray;
+	--snbTabsBG    : #f0e8ff;
+	--snbTabBG     : #f0efff;
+}
+
+/*--------------------------------------------------------------------------------
+ * Style-Anteile, die sich nicht nach der Tab-Lage unterscheiden
+ *-------------------------------------------------------------------------------*/
+.snb { 
+  position: relative; overflow: hidden;
+  border: 1px var(--snbFrameColor) solid;
+  background-color:var(--snbTabsBG);              
+  color:var(--snbTextColor)              
+  }
+  
+.snb > .snbtabs {
+  position: absolute ; width:100%; height:100%; margin:0px; padding:0px; border:none;
+}
+
+.snbtabs > .snbsel { display:none }
+
+.snbtabs > .snbsel + .snblabel {
+  position:relative;
+  border:1px var(--snbTabBorder) solid; padding:0px 0.5ex;
+  background-color:var(--snbTabBG);
+  } 
+
+.snbtabs > .snbsel + .snblabel > span { font-size:smaller; }
+
+.snbtabs > .snbsel:checked + .snblabel {
+  background-color:var(--snbSelectedBG); z-index:2; 
+  } 
+
+.snbtabs > .snblabel + .snbpage {
+  display:none; position:absolute; overflow: auto; z-index:1;
+  width:100%; height:100%; padding:2px;
+  background-color:var(--snbSelectedBG);
+}
+
+.snbtabs > .snbsel:not(:checked) + .snblabel:hover {
+  background-color:white; opacity:0.7; 
+  } 
+
+/*--------------------------------------------------------------------------------
+ * Style-Anteile, die sich nach horizontaler un vertikaler Tab-Lage unterscheiden
+ *-------------------------------------------------------------------------------*/
+.snb.hor { white-space:nowrap; }
+.snb.ver { white-space:wrap;   }
+
+.snb.hor > .snbtabs { padding: 2px  2ex; }
+.snb.ver > .snbtabs { padding: 2ex  1px; }
+
+.snb.hor > .snbtabs > .snbsel + .snblabel { display:inline-block }
+.snb.ver > .snbtabs > .snbsel + .snblabel { display:block; width:15ex; }
+
+.hor >.snbtabs > .snblabel + .snbpage { left:0px; }
+.ver >.snbtabs > .snblabel + .snbpage { top:0px; }
+
+.snb.hor > .snbtabs > .snbsel:checked + .snblabel + .snbpage { display: inline-block }
+.snb.ver > .snbtabs > .snbsel:checked + .snblabel + .snbpage { display: block }
+
+.snb.bot > .snbtabs { top:100%; transform:translate(0px, -2.4ex); }
+.snb.rgt > .snbtabs { left:100%; transform:translate(-15ex, 0px); }
+
+/*--------------------------------------------------------------------------------
+ * Style-Anteile, die sich nach der genauen Tab-Lage unterscheiden
+ * Dabei steht lft fuer left und rgt fuer right.
+ *-------------------------------------------------------------------------------*/
+.top > .snbtabs > .snbsel + .snblabel { border-radius:0.5ex 0.5ex 0px 0px; }
+.bot > .snbtabs > .snbsel + .snblabel { border-radius:0px 0px 0.5ex 0.5ex; top:-0.6ex; }
+.lft > .snbtabs > .snbsel + .snblabel { border-radius:0.5ex 0px 0px 0.5ex; }
+.rgt > .snbtabs > .snbsel + .snblabel { border-radius:0px 0.5ex 0.5ex 0px; right:2px}
+
+.top > .snbtabs > .snbsel:checked + .snblabel {border-bottom-color:var(--snbSelectedBG)}
+.bot > .snbtabs > .snbsel:checked + .snblabel {border-top-color   :var(--snbSelectedBG)}
+.lft > .snbtabs > .snbsel:checked + .snblabel {border-right-color :var(--snbSelectedBG)}
+.rgt > .snbtabs > .snbsel:checked + .snblabel {border-left-color  :var(--snbSelectedBG)}
+
+.top > .snbtabs > .snblabel + .snbpage { top   :2.4ex; padding-bottom:2.6ex ; border-top   :1px var(--snbTabBorder) solid; }
+.bot > .snbtabs > .snblabel + .snbpage { bottom:100% ; padding-top   :2.6ex ; border-bottom:1px var(--snbTabBorder) solid; }
+.lft > .snbtabs > .snblabel + .snbpage { left  :15ex ; padding-right :15ex  ; border-left  :1px var(--snbTabBorder) solid; }
+.rgt > .snbtabs > .snblabel + .snbpage { right :100% ; padding-left  :15.2ex; border-right :1px var(--snbTabBorder) solid; }

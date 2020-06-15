@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html style="width:100%; height:100%">
+<head>
+<title>📰Notebook-Test</title>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="snb.css"> </link>
+
+<script>
+
+  function requireScript(url){
+    var script = document.createElement("script"); 
+    script.src = url;  
+    document.head.appendChild(script); 
+	}
+	
+	function requireCSS(url){
+    var link = document.createElement("link"); 
+		link.rel ="stylesheet";
+    link.href = url;  
+    document.head.appendChild(link); 
+	}
+</script>
+
+<script src="nb.js"></script>
+
+<style>
+
+/* Standard-Einstellungen */
+	* {box-sizing: border-box;}
+
+	html,body {width:100%; height:100%; margin:0px; padding:0px; border:none}
+	body {font-family:Verdana; font-size:10pt; background-color:#ffffc0;overflow:hidden}
+
+/* Allgemein verwendbare Klassen */
+	.hidden {display:none}
+	
+/* spezielle styles fuer aktuellen Test */
+
+	div.extern 
+	{ position:relative; overflow:auto;	 
+	; width:90%; height:80%; top:5%; left:5%
+	; max-width:90%; max-height:80%; 
+	; min-width:20ex; min-height:200px
+	; border:4px blue solid
+	; background-color:red;
+	; color: yellow
+	; margin:2ex;
+	; padding:1ex
+	; font-size:10pt
+	}
+	
+	span.extern 
+	{ background: blue
+	; color:orange
+	; padding: 2em
+	; margin: 4em
+	; border: 10px pink inset
+	; font-size: 8pt
+	}
+	button { margin:2em }
+	
+
+
+
+	#SON { width: 90%; height: 90%; top: 5%; left: 5%; }
+	
+</style>
+
+</head>
+<body>
+<div style="display:grid; grid-template-columns:100%; grid-template-rows:50% 50%; width:100%; height:100%" >
+	<div class="extern">
+		<button onclick="testGenNB('NBOuter', 'pg1');"> Erstelle Notebook </button>
+		
+		<div id="pg1" class="extern"> 
+			<span>In das Notebook zu verschiebendes DIV <br></span>
+			<button onclick="testGenNB('NBInner', 'pg2');"> Erstelle Notebook </button>
+			<div id="pg2" class="extern">Tiefer zu verschiebendes DIV</div>
+		</div>
+	</div>
+	
+	<div class="extern">
+		<div class="snb ver rgt" id="SON" ><div class="snbtabs">
+			<input  id="SONrb1" class="snbsel" type="radio" name="SONrbg"><label class="snblabel" for="SONrb1">
+				<span id="SONtb1" class="snbtitle">erster Tab</span></label><div class="snbpage"> 
+				<div  id="SONcp1" class="snbcontent">
+					erste Seite
+				</div>
+			</div><input id="SONrb2"  class="snbsel" type="radio" name="SONrbg" checked="checked"><label class="snblabel" for="SONrb2">
+				<span id="SONtb2"  class="snbtitle">zweiter Tab</span></label><div class="snbpage"> 
+				<div  id="SONcp2"  class="snbcontent">
+					zweite Seite
+				</div>
+			</div><input id="SONrb3" class="snbsel" type="radio" name="SONrbg"><label class="snblabel" for="SONrb3">
+				<span id="SONtb3" class="snbtitle">dritter Tab</span></label><div class="snbpage"> 
+				<div  id="SONcp3" class="snbcontent">
+					dritte Seite
+				</div> 
+			</div>
+		</div></div>
+  </div>
+	
+</div>
+</body>
+</html>
