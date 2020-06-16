@@ -4,6 +4,7 @@
 <title>📰Notebook-Test</title>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 <link rel="stylesheet" type="text/css" href="snb.css"> </link>
 
 <script>
@@ -20,9 +21,52 @@
     link.href = url;  
     document.head.appendChild(link); 
 	}
+
 </script>
 
 <script src="nb.js"></script>
+<script src="snb.js"></script>
+
+<script>
+
+	function testGenNB (nbid, moveid, styles){
+		nbid   = nbid   || "TestNB";
+		moveid = moveid || "pg1";
+		styles = styles || {width:"90%",height:"90%",left:"5%",top:"5%"};
+		
+		var x = genNB(nbid
+							, ["Tabtitel1","Tabtitel2","Tabtitel3"]
+							, { indent:"  "
+								, dir:"bot"
+								, page:"Tabtitel2" 
+								, contents: 
+									{ 0 : $("#"+moveid)
+									, 1:"reiner Text"
+									, 2:"<div style='background-color:green; color:yellow'>neues DIV</div>"
+									}
+								}
+							);
+		$(x).css(styles)
+		$(event.currentTarget).parent().empty().append(x);
+	}	
+
+	$(document).ready(function(){
+		$("body").on("dblclick", ".nb > .tabs", rotateTabs);
+		$("body").on("dblclick", ".snb > .snbtabs", rotateTabs);
+		$("#Filler").click(testGenNB);
+	
+	  var nb = genSNB("TestNBS", "lft",
+		{ indent   : "      "
+		, selpage  : "letzte Seite"
+		, titles   : ["kurz", "sehr langer tab-Titel", "letzte Seite"]
+		, contents : { kurz : $(".futsch"), "letzte Seite":"reiner Text" }
+		, css      : { width:"90%", height:"90%", top:"5%", left:"5%" }
+		})
+		
+		$("#SONcp1").empty().append(nb);
+	})	
+	
+</script>
 
 <style>
 
@@ -61,8 +105,6 @@
 	button { margin:2em }
 	
 
-
-
 	#SON { width: 90%; height: 90%; top: 5%; left: 5%; }
 	
 </style>
@@ -78,6 +120,8 @@
 			<button onclick="testGenNB('NBInner', 'pg2');"> Erstelle Notebook </button>
 			<div id="pg2" class="extern">Tiefer zu verschiebendes DIV</div>
 		</div>
+		<span class="futsch"> Das ist nicht da! </span>
+		
 	</div>
 	
 	<div class="extern">
@@ -87,7 +131,7 @@
 				<div  id="SONcp1" class="snbcontent">
 					erste Seite
 				</div>
-			</div><input id="SONrb2"  class="snbsel" type="radio" name="SONrbg" checked="checked"><label class="snblabel" for="SONrb2">
+			</div><input id="SONrb2"  class="snbsel" type="radio" name="SONrbg" checked><label class="snblabel" for="SONrb2">
 				<span id="SONtb2"  class="snbtitle">zweiter Tab</span></label><div class="snbpage"> 
 				<div  id="SONcp2"  class="snbcontent">
 					zweite Seite
@@ -99,6 +143,8 @@
 				</div> 
 			</div>
 		</div></div>
+		<span class="futsch"> Das ist gar nicht da! </span>
+		<span class="futsch"> Das ist auch nicht da! </span>
   </div>
 	
 </div>
