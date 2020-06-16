@@ -9,12 +9,7 @@ var nextTabsDir =
 
 
 $(document).ready(function(){
-	$("body").on("dblclick", ".nb > .tabs", rotateTabs);
-	$("body").on("dblclick", ".snb > .snbtabs", rotateTabs);
-	
 	$("body").on("click", ".nb > .tabs > .tab", selPage);
-	
-	$("#Filler").click(testGenNB);
 })
 
 function selPage(){
@@ -30,7 +25,9 @@ function selPage(){
   tab.addClass("sel");
 }
 
-function rotateTabs (){
+function rotateTabs (event){
+	event.stopPropagation();
+	
 	var me = $(this);
   var nb = me.parent();
 	var currdir = 
@@ -111,25 +108,3 @@ console.log(nb);
 	
   return nb;	
 }
-
-function testGenNB (nbid, moveid, styles){
-	nbid   = nbid   || "TestNB";
-	moveid = moveid || "pg1";
-	styles = styles || {width:"90%",height:"90%",left:"5%",top:"5%"};
-	
-	var x = genNB(nbid
-						, ["Tabtitel1","Tabtitel2","Tabtitel3"]
-						, { indent:"  "
-						  , dir:"bot"
-							, page:"Tabtitel2" 
-							, contents: 
-							  { 0 : $("#"+moveid)
-								, 1:"reiner Text"
-								, 2:"<div style='background-color:green; color:yellow'>neues DIV</div>"
-								}
-							}
-						);
-	$(x).css(styles)
-	$(event.currentTarget).parent().empty().append(x);
-}	
-				
