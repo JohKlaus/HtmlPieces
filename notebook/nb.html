@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html style="width:100%; height:100%">
-<head>
+<head lang="de">
 <title>📰Notebook-Test</title>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
 <link rel="stylesheet" type="text/css" href="snb.css"> </link>
 
 <script>
@@ -61,6 +60,7 @@
 		, titles   : ["kurz", "sehr langer tab-Titel", "letzte Seite"]
 		, contents : { kurz : $(".futsch"), "letzte Seite":"reiner Text" }
 		, css      : { width:"90%", height:"90%", top:"5%", left:"5%" }
+		, classes  : "bunter"
 		})
 		
 		$("#SONcp1").empty().append(nb);
@@ -104,6 +104,7 @@
 	}
 	button { margin:2em }
 	
+  .bunter .snbtabs { background-color: #ffe0e0 }
 
 	#SON { width: 90%; height: 90%; top: 5%; left: 5%; }
 	
@@ -120,11 +121,11 @@
 			<button onclick="testGenNB('NBInner', 'pg2');"> Erstelle Notebook </button>
 			<div id="pg2" class="extern">Tiefer zu verschiebendes DIV</div>
 		</div>
-		<span class="futsch"> Das ist nicht da! </span>
+		<span class="futsch"> <br> Das ist nicht da! </span>
 		
 	</div>
 	
-	<div class="extern">
+	<div class="extern" id="StyledOnly">
 		<div class="snb ver rgt" id="SON" ><div class="snbtabs">
 			<input  id="SONrb1" class="snbsel" type="radio" name="SONrbg"><label class="snblabel" for="SONrb1">
 				<span id="SONtb1" class="snbtitle">erster Tab</span></label><div class="snbpage"> 
@@ -143,8 +144,8 @@
 				</div> 
 			</div>
 		</div></div>
-		<span class="futsch"> Das ist gar nicht da! </span>
-		<span class="futsch"> Das ist auch nicht da! </span>
+		<span class="futsch"> <br> Das ist gar nicht da! </span>
+		<span class="futsch"> <br> Das ist auch nicht da! </span>
   </div>
 	
 </div>
