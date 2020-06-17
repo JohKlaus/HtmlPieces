@@ -17,6 +17,8 @@
  *   contents : {Mapping der Tabtitel auf die Seiteninhalte}
  *   selpage  : Index oder Titel der selektierten Seite (titles)
  *   indent   : "Einrueckungs-String (primaere Einrueckung)"
+ *   css      : Style-Angaben fuer das neue Notebook (s. jQuery.css)
+ *   classes  : Weitere Style-Klassen fuer das neue Notebook
  * Defaults sind  [], {}, "" fuer titles, contents und indent.
  * Ist ein Seiteninhalt nicht vorgegeben, wird er mit "" defaultiert.
  * Ist keine Seite selektiert, wird Seite 0 angezeigt.
@@ -38,7 +40,8 @@ var genSNB = (function(){
 `<input  id="$[{nbid}rb$[{num}" class="snbsel" type="radio" name="$[{nbid}"$[{checked}><label class="snblabel" for="$[{nbid}rb$[{num}">
 	<span id="$[{nbid}tb$[{num}" class="snbtitle">$[{title}</span></label><div class="snbpage"> 
 	<div  id="$[{nbid}cp$[{num}" class="snbcontent">
- 	</div></div>`
+ 	</div>
+</div>`
 	}
 	for ( key in pat)
 		pat[key] = pat[key].replace(/\$\[\{/g,"${")
@@ -53,10 +56,11 @@ var genSNB = (function(){
 		var tabside  = options.tabside  || "top";
 		var selpage  = options.selpage  || 0;
 		var css      = options.css;
+		var classes  = options.classes  || "";
 		
-		var tbali    = (tabside=="top" || tabside=="bot") && "hor"  || "ver" ;
+		var tbali    = (tabside=="top" || tabside=="bot") && " hor "  || " ver " ;
 		
-		var classes  = `${tbali} ${tabside}`;
+		classes  = classes + tbali + tabside;
 		
 		var pages = [];
 		var num,id,checked,title;
@@ -67,8 +71,7 @@ var genSNB = (function(){
 				pages[num] = eval("`" + pat.page + "`"); 
 		}
 			
-		pages = pages.join(`
-		${indent}    `);
+		pages = pages.join("");
 
 		var nb = eval("`" + pat.snb +"`")
 		console.log(nb);
